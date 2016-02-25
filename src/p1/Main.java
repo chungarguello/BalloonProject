@@ -8,7 +8,6 @@ CSC164
 Balloon Project
  */
 public class Main {
-
     public static void main(String[] args) {
         //array of balloons/Menu selection
         ArrayList<balloon> list = new ArrayList<>();
