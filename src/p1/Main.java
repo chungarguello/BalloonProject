@@ -18,22 +18,15 @@ public class Main {
 
         // main menu
         do{
-            System.out.println("Main Menu\n" + "  (1) Create default balloon\n" + "  (2) Create Balloon\n" +
-                    "  (3) Destroy Balloon\n" + "  (4) Inflate Balloon\n" + "  (5) Show Balloons\n" + "  (6) Exit");
+            System.out.println("Main Menu\n" +  "  (1) Create Balloon\n" +
+                    "  (2) Destroy Balloon\n" + "  (3) Inflate Balloon\n" + "  (4) Show Balloons\n" + "  (5) Exit");
             System.out.println("choose: ");
             option = input.nextInt();
 
             //balloon default creation
-            if(option == 1){
-                if(!isArrayFull(list))
-                    System.out.println("It's full, please destroy a balloon before creating another.");
-                else {
-                    balloon b1 = new balloon();
-                    list.add(b1);
-                }
-            }
+
             //balloon creation
-            else if (option == 2){
+            if (option == 1){
                 if (!isArrayFull(list))
                     System.out.println("It's full, please destroy a balloon before creating another.");
                 else {
@@ -50,33 +43,44 @@ public class Main {
                 }
             }
             //balloon destroy
-            else if (option == 3){
+            else if (option == 2){
                 if(isValidBalloon(list))
                     System.out.println("There are no balloons to destroy.");
                 else {
                     for (balloon each : list)
                         System.out.println(each.toString());
 
-                    System.out.println("which balloon would you like to destroy? (1, 2, 3, 4, 5): ");
-                    int selection = input.nextInt();
-                    while (selection < 1 || selection > 5) {
-                        System.out.println("Choose from the following list (1, 2, 3, 4, 5): ");
-                        selection = input.nextInt();
+                    System.out.println("Which balloon would you like to destroy? (Size and Color)\n" +
+                            "Choose the size (6, 8, 10, 12): ");
+                    int s = input.nextInt();
+                    while (s != 6 && s != 8 && s != 10 && s != 12) {
+                        System.out.println("Choose from the following list\nChoose the size (6, 8, 10, 12): ");
+                        s = input.nextInt();
                     }
-                    list.remove(selection);
+                    System.out.println("Choose the color(red, blue, green, yellow): ");
+                    String c = input.next();
+                    while(!c.equals("red") && !c.equals("blue") && !c.equals("green")
+                            && !c.equals("yellow")) {
+                        System.out.println("Choose from the following list\nChoose the color(red, blue, green, yellow): ");
+                        c = input.next();
+                    }
+                    for ( balloon each : list)
+                        if (each.getColor().equals(c) && each.getSize() == s){
+                            list.remove(each);
+                        }
                 }
             }
             //balloon inflation
-            else if (option == 4){
+            else if (option == 3){
                 isBalloonInflated(list);
             }
             //show balloons
-            else if (option == 5){
+            else if (option == 4){
                 for (balloon each : list)
                     System.out.println(each.toString());
                     System.out.println("Number of balloons " + list.size());
             }
-        }while(option != 6);
+        }while(option != 5);
     }
     //////////METHODS//////////
     //Checking if Array full
@@ -102,7 +106,7 @@ public class Main {
             color = input.next();
         }
     }
-    //validating if balloons are in the arraylist
+    //validating if balloons are in the ArrayList
     public static boolean isValidBalloon(ArrayList<balloon> arg){
         return arg.size() == 0;
     }
@@ -135,9 +139,6 @@ public class Main {
                     each.setInflated();
                     System.out.println(each);
                 }
-                else if (!each.getColor().equals(c) && each.getSize() != s){
-                    System.out.println("Sorry, there is no balloon with those characteristic");
-                }
         }
     }
 }
@@ -147,12 +148,7 @@ class balloon {
     private int size;
     private String color;
     private boolean inflated;
-
-    balloon() {
-        size = 6;
-        color = "red";
-        inflated = false;
-    }
+    //custom constructor
     balloon(int s, String c){
         size = s;
         color = c;
@@ -165,7 +161,7 @@ class balloon {
         return color;
     }
     public boolean setInflated(){
-        return inflated;
+        return inflated = true;
     }
     @Override
     public String toString() {
