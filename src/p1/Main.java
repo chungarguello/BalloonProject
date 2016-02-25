@@ -7,7 +7,6 @@ Chungsing Arguello
 CSC164
 Balloon Project
  */
-
 public class Main {
 
     public static void main(String[] args) {
@@ -76,9 +75,11 @@ public class Main {
             else if (option == 5){
                 for (balloon each : list)
                     System.out.println(each.toString());
+                    System.out.println("Number of balloons " + list.size());
             }
         }while(option != 6);
     }
+    //////////METHODS//////////
     //Checking if Array full
     public static boolean isArrayFull(ArrayList<balloon> arg){
        if (arg.size() == 5)
@@ -105,12 +106,14 @@ public class Main {
             color = input.next();
         }
     }
+    //validating if balloons are in the arraylist
     public static boolean isValidBalloon(ArrayList<balloon> arg){
         if (arg.size() == 0)
             return true;
         else
             return false;
     }
+    //inflating a balloon
     public static void isBalloonInflated(ArrayList<balloon> arg){
         Scanner input = new Scanner(System.in);
 
@@ -120,18 +123,29 @@ public class Main {
             for (balloon each : arg)
                 System.out.println(each.toString());
 
-            System.out.println("Which balloon would you like to inflate? (1, 2, 3, 4, 5) ");
-            int selection = input.nextInt();
-            while(selection < 1 || selection > 5){
-                System.out.println("Choose again, from the following list (1, 2, 3, 4, 5): ");
-                selection = input.nextInt();
+            System.out.println("Which balloon would you like to inflate? (Size and Color)\n" +
+                    "Choose the size (6, 8, 10, 12): ");
+            int s = input.nextInt();
+            while (s != 6 && s != 8 && s != 10 && s != 12) {
+                System.out.println("Choose from the following list\nChoose the size (6, 8, 10, 12): ");
+                s = input.nextInt();
             }
-            if (arg == selection)){
-
+            System.out.println("Choose the color(red, blue, green, yellow): ");
+            String c = input.next();
+            while(!c.equals("red") && !c.equals("blue") && !c.equals("green")
+                    && !c.equals("yellow")) {
+                System.out.println("Choose from the following list\nChoose the color(red, blue, green, yellow): ");
+                c = input.next();
             }
+            for ( balloon each : arg)
+                if (each.getColor().equals(c) && each.getSize() == s){
+                    each.setInflated();
+                    System.out.println(each);
+                }
+                else if (!each.getColor().equals(c) && each.getSize() != s){
+                    System.out.println("Sorry, there is no balloon with those characteristic");
+                }
         }
-
-
     }
 }
 //class of balloon
@@ -140,28 +154,25 @@ class balloon {
     private int size;
     private String color;
     private boolean inflated;
-    private static int quantity;
 
     balloon() {
         size = 6;
         color = "red";
         inflated = false;
-        quantity++;
     }
     balloon(int s, String c){
         size = s;
         color = c;
         inflated = false;
-        quantity++;
     }
-    static int getQuantity(){
-        return quantity;
+    int getSize(){
+        return size;
     }
-    public boolean isInflated() {
+    String getColor(){
+        return color;
+    }
+    public boolean setInflated(){
         return inflated;
-    }
-    public void setInflated(boolean arg) {
-        inflated = arg;
     }
     @Override
     public String toString() {
