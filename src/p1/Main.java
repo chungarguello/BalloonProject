@@ -82,10 +82,7 @@ public class Main {
     //////////METHODS//////////
     //Checking if Array full
     public static boolean isArrayFull(ArrayList<balloon> arg){
-       if (arg.size() == 5)
-           return false;
-        else
-           return true;
+        return arg.size() != 5;
     }
     //validating the size of balloon input
     public static void isValidSize(int size){
@@ -108,10 +105,7 @@ public class Main {
     }
     //validating if balloons are in the arraylist
     public static boolean isValidBalloon(ArrayList<balloon> arg){
-        if (arg.size() == 0)
-            return true;
-        else
-            return false;
+        return arg.size() == 0;
     }
     //inflating a balloon
     public static void isBalloonInflated(ArrayList<balloon> arg){
@@ -183,4 +177,3 @@ class balloon {
                 '}';
     }
 }
-
